@@ -35,6 +35,9 @@ $ docker-compose -f docker-compose.yml up -d --build
 ## Running the app
 
 ```bash
+# User List
+admin -> john:password123 
+users -> jane:password456
 # Generate JWT Token
 $ curl -X POST http://localhost:3003/auth/login -H "Content-Type: application/json" -d '{"username": "john", "password": "password123"}'
 
@@ -44,19 +47,7 @@ $ curl -X POST http://localhost:3003/scores -H "Content-Type: application/json" 
 # Get Leaderboard:
 $ http://localhost:3003/leaderboard
 ```
-
-## Test
-
-```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
-```
+ 
 
 ## Support
 

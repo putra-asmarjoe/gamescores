@@ -1,9 +1,9 @@
+// src/auth/auth.service.ts
 import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
 export class AuthService {
-  // Simpan informasi pengguna secara statis (biasanya ini akan berasal dari database)
   private readonly users = [
     { username: 'john', password: 'password123', userId: 1, role: 'admin' },
     { username: 'jane', password: 'password456', userId: 2, role: 'user' },
@@ -12,10 +12,11 @@ export class AuthService {
   constructor(private readonly jwtService: JwtService) {}
 
   async validateUser(username: string, password: string) {
-    const user = this.users.find(
-      u => u.username === username && u.password === password,
-    );
-    return user; // Return user object if found, otherwise null
+    const user = this.users.find(u => u.username === username && u.password === password);
+    if (!user) {
+      return null;
+    }
+    return { userId: user.userId, username: user.username, role: user.role };
   }
 
   async generateToken(user: any) {
