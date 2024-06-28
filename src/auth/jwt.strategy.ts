@@ -9,11 +9,12 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     super({
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
       ignoreExpiration: false,
-      secretOrKey: '435345345345dfgdf', // Ganti dengan secret key Anda
+      secretOrKey: '45345345345',
     });
   }
 
   async validate(payload: any) {
-    return this.authService.validateUser(payload); // Implementasi validateUser di AuthService
+    const { username, password } = payload; // Extract username and password from JWT payload
+    return this.authService.validateUser(username, password); // Validate user by username and password
   }
 }

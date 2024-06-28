@@ -29,20 +29,20 @@
 ## Installation
 
 ```bash
-$ npm install
+$ docker-compose -f docker-compose.yml up -d --build
 ```
 
 ## Running the app
 
 ```bash
-# development
-$ npm run start
+# Generate JWT Token
+$ curl -X POST http://localhost:3003/auth/login -H "Content-Type: application/json" -d '{"username": "john", "password": "password123"}'
 
-# watch mode
-$ npm run start:dev
+# Submit Score
+$ curl -X POST http://localhost:3003/scores -H "Content-Type: application/json" -H "Authorization: Bearer JWTTOKEN" -d '{"value": 100, "playerName": "John"}'
 
-# production mode
-$ npm run start:prod
+# Get Leaderboard:
+$ http://localhost:3003/leaderboard
 ```
 
 ## Test

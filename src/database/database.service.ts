@@ -9,7 +9,7 @@ export class DatabaseService {
   constructor(private configService: ConfigService) {
     this.pool = createPool({
         host: configService.get<string>('DB_HOST') || 'localhost',
-        port: configService.get<number>('DB_PORT') || 3377,
+        port: configService.get<number>('DB_PORT') || 3388,
         user: configService.get<string>('DB_USERNAME') || 'root',
         password: configService.get<string>('DB_PASSWORD') || 'j03p455N0R1',
         database: configService.get<string>('DB_DATABASE') || 'nest',

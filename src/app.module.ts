@@ -9,6 +9,7 @@ import { ScoresModule } from './scores/scores.module';
 import { AuthService } from './auth/auth.service';
 import { JwtStrategy } from './auth/jwt.strategy';
 import { LoggerMiddleware } from './logger.middleware';
+import { AuthController } from './auth/auth.controller';
 
 @Module({
   imports: [
@@ -24,6 +25,7 @@ import { LoggerMiddleware } from './logger.middleware';
       duration: 60,
     }),
   ],
+  controllers: [AuthController],
   providers: [
     AuthService,
     JwtStrategy,

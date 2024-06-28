@@ -12,9 +12,9 @@ export class ScoresController {
 
   @UseGuards(AuthGuard)
   @Post('scores')
-  async createScore(@Req() req: Request, @Body() body: { value: number }) {
-    const player = (req.user as UserPayload).username; // Asumsikan user terautentikasi memiliki username
-    await this.scoresService.createScore(player, body.value);
+  async createScore(@Req() req: Request, @Body() body: { playerName: string, value: number }) {
+    const { playerName, value } = body; 
+    await this.scoresService.createScore(playerName, value);
   }
 
   @Get('leaderboard')
