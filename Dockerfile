@@ -1,4 +1,4 @@
-FROM node:14-alpine
+FROM node:19
 
 # Buat direktori kerja di dalam container
 WORKDIR /app
@@ -12,7 +12,6 @@ RUN npm install --production --verbose
 
 # Salin semua file proyek
 COPY . .
-RUN mkdir -p logs && chmod -R 0777 logs
 
 # Jalankan build TypeScript
 RUN npm run build
