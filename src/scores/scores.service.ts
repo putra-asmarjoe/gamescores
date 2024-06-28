@@ -13,10 +13,15 @@ export class ScoresService {
   }
 
   async getLeaderboard(): Promise<{ playerName: string; score: number }[]> {
-    const rows = await this.databaseService.query(
-      'SELECT playerName, score FROM scores ORDER BY score DESC LIMIT 10',
-      [],
-    );
-    return rows;
+    const query = `
+      SELECT playerName, MAX(score) AS score
+      FROM scores
+      GROUP BY playerName
+      ORDER BY score DESC
+      LIMIT 10
+    `;
+    
+    const rows = await this.databaseService.query(query, []);
+    return rows.map(row => ({ playerName: row.playerName, score: row.score }));
   }
 }
