@@ -1,28 +1,26 @@
 version: '3'
 
 services:
-  mongodb:
-    image: mongo:5
-    container_name: mongodb
-    restart: always
+  nestjs-app:
+    build: .
     ports:
-      - "27018:27017"
+      - "3003:3000"
     environment:
-      MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: example
-      MONGO_INITDB_DATABASE: nest
-
-  nestjs:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    container_name: nestjs
-    restart: always
-    ports:
-      - "3022:3000"
-    environment:
-      NODE_ENV: production
-      MONGO_URI: mongodb://root:example@mongodb:27017
-      DB_NAME: nest
+      DB_HOST: mysql-container
+      DB_PORT: 3306
+      DB_USERNAME: root
+      DB_PASSWORD: j03p455N0R1
+      DB_DATABASE: nest
+      JWT_SECRET: 45345345345
     depends_on:
-      - mongodb
+      - mysql-container
+
+  mysql-container:
+    image: mysql:latest
+    ports:
+      - "3377:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: j03p455N0R1
+    volumes:
+      - ./data:/var/lib/mysql  # Ganti dengan path direktori untuk data MySQL jika perlu
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql  # Mount init.sql ke direktori initdb MySQL
