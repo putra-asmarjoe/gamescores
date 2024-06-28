@@ -9,6 +9,7 @@ COPY package*.json ./
 # Install dependensi
 RUN npm install --production --verbose
 
+RUN npm install -g @nestjs/cli
 
 # Salin semua file proyek
 COPY . .
