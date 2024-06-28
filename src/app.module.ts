@@ -20,23 +20,19 @@ import { AuthController } from './auth/auth.controller';
       secret: process.env.JWT_SECRET || '45345345345',
       signOptions: { expiresIn: '1h' },
     }),
-    RateLimiterModule.register({
-      points: 10, // 10 requests per minute
-      duration: 60,
-    }),
+    // RateLimiterModule.register({
+    //   points: 10, // 10 requests per minute
+    //   duration: 60,
+    // }),
   ],
   controllers: [AuthController],
   providers: [
     AuthService,
-    JwtStrategy,
-    {
-      provide: APP_GUARD,
-      useClass: RateLimiterGuard,
-    },
+    JwtStrategy
   ],
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
-    consumer.apply(LoggerMiddleware).forRoutes('*');
+    consumer.apply(LoggerMiddleware).forRoutes('*'); 
   }
 }

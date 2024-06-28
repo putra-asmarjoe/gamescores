@@ -3,12 +3,13 @@ import { ScoresService } from './scores.service';
 import { AuthGuard } from '../auth/auth.guard';
 import { Request } from 'express';
 import { UserPayload } from '../auth/user-payload.interface';
+import { RateLimiterGuard } from 'nestjs-rate-limiter';
 
 @Controller()
 export class ScoresController {
   constructor(private readonly scoresService: ScoresService) {}
 
-  @UseGuards(AuthGuard)
+  @UseGuards(AuthGuard, RateLimiterGuard)
   @Post('scores')
   async createScore(@Req() req: Request, @Body() body: { playerName: string, value: number }) {
     const { playerName, value } = body; 
